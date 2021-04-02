@@ -75,10 +75,28 @@ export default defineComponent({
     const useCurrentLocation = async () => {
       btnState.isDisable = true;
       try {
+        if (!navigator.geolocation) {
+          throw "Geolocation is not supported by your browser";
+        } else {
         const position = await getCurrentPosition();
         getWeather(position.coords.latitude, position.coords.longitude);
+        }
       } catch (e) {
-        console.log(e);
+        let errText: string;
+        switch (e.code) {
+          case 1:
+            errText = "位置情報の取得に失敗しました。(PERMISSION_DENIED)";
+            break;
+          case 2:
+            errText = "位置情報の取得に失敗しました。(POSITION_UNAVAILABLE)";
+            break;
+          case 3:
+            errText = "位置情報の取得に失敗しました。(TIMEOUT)";
+            break;
+          default:
+            errText = e;
+        }
+        window.alert(errText);
         btnState.isDisable = false;
       }
     };
