@@ -128,10 +128,10 @@ export default defineComponent({
           switch (response.status) {
             case 404:
               errText =
-                "該当の都市を見つけられませんでした。都道府県名をローマ字で入力するか別の場所で入力してください。";
+                "該当の都市を見つけられませんでした。都道府県名をローマ字で入力するか別の場所を入力してください。";
               break;
             case 429:
-              errText = "時間を開けて試してください。";
+              errText = "時間を開けて入力してください。";
               break;
             default:
               errText =
