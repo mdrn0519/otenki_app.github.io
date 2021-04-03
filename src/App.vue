@@ -104,7 +104,6 @@ export default defineComponent({
     const getWeather = (lat: number, lon: number) => {
       if (!btnState.isDisable) btnState.isDisable = true;
       let apiUrl;
-      console.log(weather.location.match(/\d{7}/));
       if (lat !== undefined && lon !== undefined) {
         // use geolocation
         weather.geolocation = `${lat}, ${lon}`;
