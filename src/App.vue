@@ -78,8 +78,8 @@ export default defineComponent({
         if (!navigator.geolocation) {
           throw "Geolocation is not supported by your browser";
         } else {
-        const position = await getCurrentPosition();
-        getWeather(position.coords.latitude, position.coords.longitude);
+          const position = await getCurrentPosition();
+          getWeather(position.coords.latitude, position.coords.longitude);
         }
       } catch (e) {
         let errText: string;
@@ -93,6 +93,7 @@ export default defineComponent({
           case 3:
             errText = "位置情報の取得に失敗しました。(TIMEOUT)";
             break;
+          //geolocationをサポートしていない場合
           default:
             errText = e;
         }
