@@ -179,6 +179,7 @@ export default defineComponent({
       modalState.isActive = false;
       weather.geolocation = "";
       weather.location = "";
+      weather.img = "";
     };
 
     return {
