@@ -57,43 +57,43 @@ export default defineComponent({
 <style lang="scss" module>
 .modal {
   height: 100vh;
-  width: 100vw;
+  left: 0;
   position: fixed;
   top: 0;
-  left: 0;
+  width: 100vw;
 }
 
 .modal__bg {
-  height: 100%;
   background-color: rgba(255, 255, 255, 0.4);
+  height: 100%;
 }
 
 .modal__contents {
-  width: calc(100% - 20px);
-  max-width: 400px;
-  height: 500px;
-  max-height: calc(100% - 80px);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  align-items: center;
   background-color: rgba(255, 255, 255, 0.9);
-  text-align: center;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  height: 500px;
   justify-content: center;
-  align-items: center;
+  left: 50%;
+  max-height: calc(100% - 80px);
+  max-width: 400px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 20px);
 }
 
 .img {
   height: auto;
-  width: 200px;
   margin-top: 30px;
+  width: 200px;
 }
 
-.location {
-  margin-top: 15px;
+.geolocation {
+  margin-bottom: 15px;
 }
 
 .weather_state {
@@ -106,7 +106,7 @@ export default defineComponent({
 
 .closeBtn {
   position: absolute;
-  top: 0;
-  right: 0;
+  right: 10px;
+  top: 10px;
 }
 </style>

@@ -209,9 +209,9 @@ export default defineComponent({
 }
 
 .content {
-  padding: 20vh 10px 0;
-  max-width: 660px;
   margin: 0 auto;
+  max-width: 660px;
+  padding: 20vh 10px 0;
 }
 
 .title {
@@ -219,30 +219,31 @@ export default defineComponent({
 }
 
 .locationFrom {
-  margin-top: 30px;
   background-color: #f1f4f9;
+  margin-top: 30px;
 }
 
 .locationFrom__input {
-  display: block;
   border: 1px solid #666;
-  width: 100%;
-  max-width: 300px;
+  display: block;
   margin: 0 auto;
+  max-width: 300px;
+  width: 100%;
 }
 
 .locationFrom__btn {
-  width: 100%;
-  max-width: 250px;
-  margin: 30px auto 0;
-  height: 40px;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  background-color: #f1f4f9;
   border: 1px solid #f1f1f1;
   border-radius: 5px;
-  background-color: #f1f4f9;
+  display: flex;
   filter: drop-shadow(-4px -4px 4px #fff) drop-shadow(3px 3px 1px #e0e5ec);
+  height: 40px;
+  justify-content: center;
+  margin: 30px auto 0;
+  max-width: 250px;
+  position: relative;
+  width: 100%;
 
   &:disabled {
     text-decoration: line-through;
