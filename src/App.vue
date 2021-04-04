@@ -16,6 +16,14 @@
           :class="$style.locationFrom__btn"
         >
           Input
+          <div
+            v-if="isUseSpinner && !btnState.isUseGeolocation"
+            :class="$style.spinner"
+          >
+            <div :class="$style.spinner__circle"></div>
+            <div :class="[$style.spinner__circle, $style.center]"></div>
+            <div :class="[$style.spinner__circle, $style.right]"></div>
+          </div>
         </button>
         <button
           type="button"
@@ -24,6 +32,14 @@
           @click="useCurrentLocation"
         >
           use current location
+          <div
+            v-if="isUseSpinner && btnState.isUseGeolocation"
+            :class="$style.spinner"
+          >
+            <div :class="$style.spinner__circle"></div>
+            <div :class="[$style.spinner__circle, $style.center]"></div>
+            <div :class="[$style.spinner__circle, $style.right]"></div>
+          </div>
         </button>
       </form>
     </div>
@@ -41,13 +57,14 @@
         :weather="weather.state"
         :temp="weather.temp"
         @modal-close="modalClose"
+        @is-loaded="isLoaded"
       />
     </transition>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, computed } from "vue";
 import axios from "axios";
 import getCurrentPosition from "./ts/getCurrentLocation";
 import Modal from "./components/Modal.vue";
@@ -60,6 +77,7 @@ export default defineComponent({
   setup() {
     const btnState = reactive({
       isDisable: false,
+      isUseGeolocation: false,
     });
     const weather = reactive({
       geolocation: "",
@@ -72,8 +90,13 @@ export default defineComponent({
       isActive: false,
     });
 
+    const isUseSpinner = computed(() => {
+      return btnState.isDisable && !modalState.isActive;
+    });
+
     const useCurrentLocation = async () => {
       btnState.isDisable = true;
+      btnState.isUseGeolocation = true;
       try {
         if (!navigator.geolocation) {
           throw "Geolocation is not supported by your browser";
@@ -120,8 +143,6 @@ export default defineComponent({
           weather.state = data.weather[0].main;
           weather.img = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
           weather.temp = `${Math.round(data.main.temp - 273.15)}`;
-
-          modalState.isActive = true;
         })
         .catch(({ response }) => {
           let errText: string;
@@ -144,7 +165,12 @@ export default defineComponent({
         });
     };
 
+    const isLoaded = () => {
+      modalState.isActive = true;
+    };
+
     const modalClose = () => {
+      btnState.isUseGeolocation = false;
       modalState.isActive = false;
       weather.geolocation = "";
       weather.location = "";
@@ -154,8 +180,10 @@ export default defineComponent({
       btnState,
       weather,
       modalState,
+      isUseSpinner,
       useCurrentLocation,
       getWeather,
+      isLoaded,
       modalClose,
     };
   },
@@ -212,6 +240,50 @@ export default defineComponent({
 
   &:disabled {
     text-decoration: line-through;
+  }
+}
+
+.spinner {
+  align-items: center;
+  background-color: #f1f4f9;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.spinner__circle {
+  animation: fade 1.2s infinite;
+  background-color: #92959b;
+  border-radius: 50%;
+  height: 6px;
+  width: 6px;
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  &.center {
+    animation-delay: 0.4s;
+  }
+
+  &.right {
+    animation-delay: 0.8s;
   }
 }
 
