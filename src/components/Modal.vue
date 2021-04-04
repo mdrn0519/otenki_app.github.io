@@ -2,10 +2,10 @@
   <div :class="$style.modal">
     <div :class="$style.modal__bg" @click="modalClose"></div>
     <div :class="$style.modal__contents">
-      <div :class="$style.closeBtn" @click="modalClose">X</div>
+      <div :class="$style.closeBtn" @click="modalClose">[X]</div>
       <p v-if="geolocation" :class="$style.geolocation">{{ geolocation }}</p>
-      <p :class="$style.location">In and around {{ location }}</p>
-      <img :src="img" :class="$style.img" />
+      <p>In and around {{ location }}</p>
+      <img :src="img" :class="$style.img" @load="isLoaded" />
       <p :class="$style.weather_state">{{ weather }}</p>
       <p :class="$style.weather_temp">{{ temp }} &#8451;</p>
     </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "HelloWorld",
@@ -40,14 +40,14 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const state = reactive({
-      isLoadet: false,
-    });
+    const isLoaded = () => {
+      context.emit("isLoaded");
+    };
     const modalClose = () => {
       context.emit("modalClose");
     };
     return {
-      state,
+      isLoaded,
       modalClose,
     };
   },
