@@ -6,6 +6,7 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "lint:css": "stylelint src/app.vue src/**/*.{vue,scss}",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
@@ -28,6 +29,9 @@
     "node-sass": "^4.12.0",
     "prettier": "^2.2.1",
     "sass-loader": "^8.0.2",
+    "stylelint": "^13.12.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-order": "^4.1.0",
     "typescript": "~4.1.5"
   },
   "eslintConfig": {
