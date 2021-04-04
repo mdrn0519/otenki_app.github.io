@@ -79,13 +79,15 @@ export default defineComponent({
       isDisable: false,
       isUseGeolocation: false,
     });
+
     const weather = reactive({
       geolocation: "",
       location: "",
-      state: "Clear",
-      img: "https://openweathermap.org/img/wn/01d@4x.png",
-      temp: "18",
+      state: "",
+      img: "",
+      temp: "",
     });
+
     const modalState = reactive({
       isActive: false,
     });
@@ -130,7 +132,10 @@ export default defineComponent({
       let apiUrl;
       if (lat !== undefined && lon !== undefined) {
         // use geolocation
-        weather.geolocation = `${lat}, ${lon}`;
+        const round = (n: number) => {
+          return Math.round(n * 10000) / 10000;
+        };
+        weather.geolocation = `${round(lat)}, ${round(lon)}`;
         apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=0a9f76b40749280f3266017a63c98261&lang=ja`;
       } else {
         // use city name
