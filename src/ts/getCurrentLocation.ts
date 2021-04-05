@@ -1,8 +1,3 @@
-/**
- * /node_modules/typescript/lib/lib.dom.d.ts
- * https://github.com/microsoft/TypeScript/blob/master/lib/lib.dom.d.ts#L5746
- */
-
 function getCurrentLocation(): Promise<GeolocationPosition> {
   return new Promise((res, rej) => {
     const options: PositionOptions = {
