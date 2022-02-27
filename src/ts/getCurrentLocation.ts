@@ -5,8 +5,8 @@ function getCurrentLocation(): Promise<GeolocationPosition> {
       timeout: 10000,
       maximumAge: 0,
     };
-    const success: PositionCallback = (positon: GeolocationPosition) => {
-      res(positon);
+    const success: PositionCallback = (position: GeolocationPosition) => {
+      res(position);
     };
     const err: PositionErrorCallback = (err: GeolocationPositionError) => {
       rej(err);

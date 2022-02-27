@@ -68,6 +68,7 @@ import { defineComponent, reactive, computed } from "vue";
 import axios from "axios";
 import getCurrentPosition from "./ts/getCurrentLocation";
 import Modal from "./components/Modal.vue";
+import Config from "../apiKey";
 
 export default defineComponent({
   name: "App",
@@ -75,6 +76,7 @@ export default defineComponent({
     Modal,
   },
   setup() {
+    const API_KEY: string = Config.apiKey;
     const btnState = reactive({
       isDisable: false,
       isUseGeolocation: false,
@@ -136,10 +138,10 @@ export default defineComponent({
           return Math.round(n * 10000) / 10000;
         };
         weather.geolocation = `${round(lat)}, ${round(lon)}`;
-        apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=0a9f76b40749280f3266017a63c98261&lang=ja`;
+        apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&lang=ja`;
       } else {
         // use city name
-        apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${weather.location}&appid=0a9f76b40749280f3266017a63c98261&lang=ja`;
+        apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${weather.location}&appid=${API_KEY}&lang=ja`;
       }
       axios
         .get(apiUrl)
